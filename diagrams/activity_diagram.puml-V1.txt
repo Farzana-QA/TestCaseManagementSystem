@@ -1,0 +1,71 @@
+
+@startuml
+
+title Test Case Management System - Activity Diagram
+
+start
+
+:Start application;
+
+:Create TestCaseService;
+
+:Create TestCaseMenuDialog;
+
+:Display menu;
+
+repeat
+
+    :User selects an option;
+
+    if (Option selected?) then (1 - Register)
+
+        :Enter test case title;
+        :Enter description;
+        :Enter expected result;
+
+        if (All fields entered?) then (Yes)
+
+            :Create TestCase object;
+
+            :Add test case to service;
+
+            :Display success message;
+
+        else (No)
+
+            :Display required fields message;
+
+        endif
+
+    elseif (Option selected?) then (2 - Display)
+
+        :Get all test cases;
+
+        if (Test cases exist?) then (Yes)
+
+            :Display all test cases;
+
+        else (No)
+
+            :Display no test cases message;
+
+        endif
+
+    elseif (Option selected?) then (0 - Exit)
+
+        :Display exit message;
+
+    else (Invalid choice)
+
+        :Display error message;
+
+    endif
+
+repeat while (Choice is not 0?) is (Yes)
+-> No;
+
+:Close application;
+
+stop
+
+@enduml

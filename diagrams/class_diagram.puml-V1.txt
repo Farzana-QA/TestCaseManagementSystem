@@ -1,0 +1,35 @@
+
+@startuml
+
+title Test Case Management System - Class Diagram
+
+class TestCase {
+    - title: str
+    - description: str
+    - expected_result: str
+
+    + __init__(title, description, expected_result)
+}
+
+class TestCaseService {
+    - test_cases: list[TestCase]
+
+    + __init__()
+    + add_test_case(test_case)
+    + get_test_cases(): list[TestCase]
+}
+
+class TestCaseMenuDialog {
+    - service: TestCaseService
+
+    + __init__(service)
+    + add_test_case_menu()
+    + list_test_cases_menu()
+    + show_menu()
+}
+
+TestCaseMenuDialog --> TestCaseService : uses
+
+TestCaseService "1" o-- "*" TestCase : manages
+
+@enduml

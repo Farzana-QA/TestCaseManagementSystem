@@ -1,0 +1,86 @@
+
+@startuml
+
+title Test Case Management System - Sequence Diagram
+
+actor User
+participant "main.py" as Main
+boundary TestCaseMenuDialog
+control TestCaseService
+participant TestCase
+
+User -> Main: Start application
+
+Main -> TestCaseService: Create service
+TestCaseService --> Main: Service created
+
+Main -> TestCaseMenuDialog: Create dialog(service)
+TestCaseMenuDialog --> Main: Dialog created
+
+Main -> TestCaseMenuDialog: show_menu()
+
+loop Until user exits
+
+    TestCaseMenuDialog -> User: Display menu
+    User -> TestCaseMenuDialog: Select option
+
+    alt Option 1 - Register test case
+
+        TestCaseMenuDialog -> User: Request title
+        User --> TestCaseMenuDialog: Enter title
+
+        TestCaseMenuDialog -> User: Request description
+        User --> TestCaseMenuDialog: Enter description
+
+        TestCaseMenuDialog -> User: Request expected result
+        User --> TestCaseMenuDialog: Enter expected result
+
+        alt All fields entered
+
+            TestCaseMenuDialog -> TestCase: Create test case
+            TestCase --> TestCaseMenuDialog: Return object
+
+            TestCaseMenuDialog -> TestCaseService: add_test_case(test_case)
+            TestCaseService --> TestCaseMenuDialog: Confirmation
+
+            TestCaseMenuDialog -> User: Display success message
+
+        else Missing information
+
+            TestCaseMenuDialog -> User: Display required fields message
+
+        end
+
+    else Option 2 - Display test cases
+
+        TestCaseMenuDialog -> TestCaseService: get_test_cases()
+        TestCaseService --> TestCaseMenuDialog: Return test case list
+
+        alt Test cases exist
+
+            loop For each test case
+                TestCaseMenuDialog -> User: Display test case information
+            end
+
+        else No test cases
+
+            TestCaseMenuDialog -> User: Display no test cases message
+
+        end
+
+    else Option 0 - Exit
+
+        TestCaseMenuDialog -> User: Display exit message
+
+    else Invalid choice
+
+        TestCaseMenuDialog -> User: Display error message
+
+    end
+
+end
+
+TestCaseMenuDialog --> Main: Menu closed
+Main --> User: Application closed
+
+@enduml
