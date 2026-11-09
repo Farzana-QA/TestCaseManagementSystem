@@ -40,8 +40,11 @@ loop Until user exits
             TestCaseMenuDialog -> TestCase: Create test case
             TestCase --> TestCaseMenuDialog: Return object
 
-            TestCaseMenuDialog -> TestCaseService: add_test_case(test_case)
-            TestCaseService --> TestCaseMenuDialog: Confirmation
+          TestCaseMenuDialog -> TestCaseService: add_test_case(test_case)
+
+		note right of TestCaseService
+  		Test case is added to the list.
+		end note
 
             TestCaseMenuDialog -> User: Display success message
 
