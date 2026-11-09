@@ -79,6 +79,7 @@ The tests check that:
 - The service starts with an empty list.
 - A test case can be added.
 - Multiple test cases can be stored.
+All three unit tests have passed successfully.
 
 ## 6. Design Reflection
 
@@ -90,7 +91,7 @@ Represents one test case and contains its title, description and expected result
 
 **TestCaseService**
 
-Manages the test cases. It handles adding and retrieving test cases.
+Manages the test cases. It handles adding and retrieving test cases. It also returns a copy of the list when test cases are requested.
 
 **TestCaseMenuDialog**
 
